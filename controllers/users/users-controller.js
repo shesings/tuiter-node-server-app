@@ -5,6 +5,7 @@ const UserController = (app) => {       // use express instance app to declare H
     app.get('/api/users/:uid', findUserById);
     app.post('/api/users', createUser);     // map URL pattern to handler function
     app.delete('/api/users/:uid', deleteUser);
+    app.put('/api/users/:uid', updateUser);
 }
 const findUsers = (req, res) => {
     const type = req.query.type             // retrieve type parameter from query
@@ -37,6 +38,16 @@ const deleteUser = (req, res) => {
     res.sendStatus(200);
 }
 
+const updateUser = (req, res) => {      // handle PUT /api/users/:uid
+    const userId = req.params['uid'];   // get user ID from path
+    const updates = req.body;           // BODY includes updated fields
+    users = users.map((usr) =>    // create a new array of users
+        usr._id === userId ?            // if current user's ID matches ID we want to update
+            {...usr, ...updates} :      // merge old usr with new updates
+            usr                         // otherwise keep the old user
+    );
+    res.sendStatus(200);                // return OK
+}
 
 export default UserController           // exports so app.js can import
 

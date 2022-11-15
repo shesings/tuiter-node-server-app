@@ -4,6 +4,7 @@ const UserController = (app) => {       // use express instance app to declare H
     app.get('/api/users', findUsers);    // request pattern /api/users to call a function
     app.get('/api/users/:uid', findUserById);
     app.post('/api/users', createUser);     // map URL pattern to handler function
+    app.delete('/api/users/:uid', deleteUser);
 }
 const findUsers = (req, res) => {
     const type = req.query.type             // retrieve type parameter from query
@@ -28,6 +29,15 @@ const createUser = (req, res) => {                  // function invoked if URL m
     users.push(newUser);                            // append new user to users array
     res.json(newUser);                              // respond with new user to client
 }
+
+const deleteUser = (req, res) => {
+    const userId = req.params['uid'];
+    users = users.filter(usr =>
+        usr._id !== userId);
+    res.sendStatus(200);
+}
+
+
 export default UserController           // exports so app.js can import
 
 

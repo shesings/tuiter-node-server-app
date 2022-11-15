@@ -3,6 +3,7 @@ let users = people
 const UserController = (app) => {       // use express instance app to declare HTTP GET
     app.get('/api/users', findUsers);    // request pattern /api/users to call a function
     app.get('/api/users/:uid', findUserById);
+    app.post('/api/users', createUser);     // map URL pattern to handler function
 }
 const findUsers = (req, res) => {
     const type = req.query.type             // retrieve type parameter from query
@@ -19,6 +20,13 @@ const findUserById = (req, res) => {
     const userId = req.params.uid;
     const user = users.find(u => u._id === userId);
     res.json(user);
+}
+
+const createUser = (req, res) => {                  // function invoked if URL matches pattern
+    const newUser = req.body;                       // extract new user from BODY in request
+    newUser._id = (new Date()).getTime() + '';      // add an _id property with unique timestamp
+    users.push(newUser);                            // append new user to users array
+    res.json(newUser);                              // respond with new user to client
 }
 export default UserController           // exports so app.js can import
 

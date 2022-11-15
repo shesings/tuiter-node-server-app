@@ -12,7 +12,15 @@ const createTuit = (req, res) => {
 const findTuits = (req, res) => {
     res.json(tuits);
 }
-const updateTuit = (req, res) => {}
+const updateTuit = (req, res) => {
+    const tuitIdToUpdate = parseInt(req.params.tid);
+    const updates = req.body;
+    const tuitIndex = tuits.findIndex(
+        (t) => t._id === tuitIdToUpdate)
+    tuits[tuitIndex] =
+        {...tuits[tuitIndex], ...updates};
+    res.sendStatus(200);
+}
 
 const deleteTuit = (req, res) => {
     const tuitIdToDelete = req.params.tid;

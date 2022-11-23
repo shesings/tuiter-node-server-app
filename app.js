@@ -1,3 +1,5 @@
+import mongoose from "mongoose";                            // load the mongoose library
+mongoose.connect('mongodb://localhost:27017/tuiter');    // connect to the tuiter database
 import express from 'express';
 import cors from 'cors';
 import HelloController from "./controllers/hello-controller.js";

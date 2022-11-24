@@ -5,6 +5,10 @@ const createTuit = async (req, res) => {
     newTuit.likes = 0;
     newTuit.dislikes = 0;
     newTuit.liked = false;
+    newTuit.userName = "NASA";
+    newTuit.handle = "@nasa";
+    newTuit.time = "now";
+    newTuit.avatarIcon = "https://pbs.twimg.com/profile_images/1321163587679784960/0ZxKlEKB_400x400.jpg";
     const insertedTuit = await tuitsDao.createTuit(newTuit);
     res.json(insertedTuit);
 }
